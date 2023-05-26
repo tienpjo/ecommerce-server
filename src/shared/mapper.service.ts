@@ -13,6 +13,8 @@ import {
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/user/models/user.model';
 import { UserDto } from 'src/user/models/standard-models/user.dto';
+import { Product } from 'src/products/models/products.model';
+import { ProductDto } from 'src/products/models/dto/products.dto';
 
 @Injectable()
 export class AutomapProfile extends AutomapperProfile {

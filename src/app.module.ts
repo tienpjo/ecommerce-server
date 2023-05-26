@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
+import { ProductsModule } from './products/products.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,6 +28,7 @@ import { classes } from '@automapper/classes';
       strategyInitializer: classes(),
     }),
     UserModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

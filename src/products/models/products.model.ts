@@ -3,6 +3,7 @@ import { getModelForClass, prop, types } from '@typegoose/typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { Model } from 'mongoose';
 import { BaseModule, schemaOptions } from 'src/shared/base.model';
+import { PaginateModel } from 'typegoose-cursor-pagination';
 
 export class Product extends BaseModule<Product> {
   @prop()
@@ -19,7 +20,7 @@ export class Product extends BaseModule<Product> {
 
   @prop()
   @AutoMap()
-  tags: string[];
+  category: string[];
 
   @prop()
   @AutoMap()
@@ -63,4 +64,11 @@ export class Product extends BaseModule<Product> {
   static get getModelName(): string {
     return this.modelFromClass.modelName;
   }
+}
+
+export interface PaginateOptions {
+  sort: string;
+  price: string;
+  page: number;
+  limit: number;
 }

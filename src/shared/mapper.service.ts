@@ -1,20 +1,9 @@
 /* istanbul ignore file */
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
-import {
-  Converter,
-  convertUsing,
-  createMap,
-  forMember,
-  ignore,
-  mapFrom,
-  Mapper,
-  MappingProfile,
-} from '@automapper/core';
+import { createMap, forMember, mapFrom, Mapper } from '@automapper/core';
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/user/models/user.model';
 import { UserDto } from 'src/user/models/standard-models/user.dto';
-import { Product } from 'src/products/models/products.model';
-import { ProductDto } from 'src/products/models/dto/products.dto';
 
 @Injectable()
 export class AutomapProfile extends AutomapperProfile {
@@ -23,26 +12,26 @@ export class AutomapProfile extends AutomapperProfile {
   }
 
   override get profile() {
-    return (mapper) => {
+    return mapper => {
       createMap(
         mapper,
         User,
         UserDto,
         forMember(
-          (d) => d.firstName,
-          mapFrom((s) => s.firstName),
+          d => d.firstName,
+          mapFrom(s => s.firstName),
         ),
         forMember(
-          (d) => d.lastName,
-          mapFrom((s) => s.lastName),
+          d => d.lastName,
+          mapFrom(s => s.lastName),
         ),
         forMember(
-          (d) => d.fullName,
-          mapFrom((s) => s.lastName + ' ' + s.firstName),
+          d => d.fullName,
+          mapFrom(s => s.lastName + ' ' + s.firstName),
         ),
         forMember(
-          (d) => d.role,
-          mapFrom((s) => s.role),
+          d => d.role,
+          mapFrom(s => s.role),
         ),
       );
     };

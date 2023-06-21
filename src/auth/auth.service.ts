@@ -21,4 +21,10 @@ export class AuthService {
   async signPayload(payload: JwtPayload): Promise<string> {
     return sign(payload, this.jwtKey, this.jwtOptions);
   }
+
+  async validateUser(payload: JwtPayload): Promise<User> {
+    return this._userService.findOne({
+      username: payload.username.toLowerCase(),
+    });
+  }
 }

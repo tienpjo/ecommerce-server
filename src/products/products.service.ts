@@ -42,7 +42,6 @@ export class ProductsService extends BaseService<Product> {
     const maxPriceQuery = maxPrice ? { maxPrice } : {};
 
     const query = { ...searchQuery, ...categoryQuery, ...maxPriceQuery };
-    console.log(searchQuery, categoryQuery, maxPriceQuery);
     const options = {
       limit: paginationLimit,
       page: parseFloat(page),

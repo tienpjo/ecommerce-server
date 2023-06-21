@@ -1,9 +1,7 @@
 import { AutoMap } from '@automapper/classes';
-import { getModelForClass, prop, types } from '@typegoose/typegoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { Model } from 'mongoose';
 import { BaseModule, schemaOptions } from 'src/shared/base.model';
-import { PaginateModel } from 'typegoose-cursor-pagination';
 
 export class Product extends BaseModule<Product> {
   @prop()
@@ -52,6 +50,14 @@ export class Product extends BaseModule<Product> {
   @prop()
   @AutoMap()
   images: string[];
+
+  @prop()
+  @AutoMap()
+  qty?: number;
+
+  @prop()
+  @AutoMap()
+  id?: string;
 
   static get modelFromClass(): ModelType<Product> {
     return getModelForClass(Product, { schemaOptions });

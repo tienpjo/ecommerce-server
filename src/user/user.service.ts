@@ -2,19 +2,16 @@ import {
   Injectable,
   HttpException,
   HttpStatus,
-  UnauthorizedException,
   Inject,
   forwardRef,
   ConflictException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { extend } from 'lodash';
 import { BaseService } from 'src/shared/base.service';
 import { User } from './models/user.model';
 import { LoginUserDto } from './models/standard-models/login-user.dto';
 import * as bcrypt from 'bcrypt';
 import { RegisterUserDto } from './models/standard-models/register-user.dto';
-import { rmSync } from 'fs';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { JwtPayload } from 'src/auth/jwt-payload.model';
@@ -28,7 +25,8 @@ export class UserService extends BaseService<User> {
   constructor(
     @InjectModel(User.getModelName)
     private readonly _userModel: ModelType<User>,
-    private readonly _authService: AuthService,
+    @Inject(forwardRef(() => AuthService))
+    readonly _authService: AuthService,
     @InjectMapper() private readonly _mapper: Mapper,
   ) {
     super();

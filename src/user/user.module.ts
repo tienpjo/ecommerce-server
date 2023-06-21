@@ -18,7 +18,7 @@ import { AutomapProfile } from 'src/shared/mapper.service';
       },
     ]),
   ],
-  providers: [UserService, AuthService, AutomapProfile],
+  providers: [UserService, AutomapProfile, AuthService],
   controllers: [UserController],
   exports: [UserService],
 })

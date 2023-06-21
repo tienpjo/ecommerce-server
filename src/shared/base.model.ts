@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { prop } from '@typegoose/typegoose';
 import { Expose } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Schema, SchemaOptions } from 'mongoose';
+import mongoose, { Schema, SchemaOptions } from 'mongoose';
 @Module({})
 export abstract class BaseModule<T> {
   @ApiPropertyOptional({ type: Date })
@@ -18,7 +18,7 @@ export abstract class BaseModule<T> {
   @ApiPropertyOptional()
   @prop()
   @Expose()
-  id?: string;
+  _id?: mongoose.Types.ObjectId;
 
   @ApiPropertyOptional()
   @prop()

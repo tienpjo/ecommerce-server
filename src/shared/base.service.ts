@@ -1,16 +1,19 @@
-import { InjectMapper } from '@automapper/nestjs';
-import { AutoMapper } from '@nartc/automapper';
 import { Injectable } from '@nestjs/common';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { GetProductsDto } from 'src/products/models/dto/get-products.dto';
-import { PaginateOptions, Product } from 'src/products/models/products.model';
-import { User } from 'src/user/models/user.model';
+import * as mongoose from 'mongoose';
+import { Types } from 'mongoose';
+import { PaginateOptions } from 'src/products/models/products.model';
 
 @Injectable()
 export abstract class BaseService<T> {
-  constructor() {}
   protected _model: ModelType<T>;
+  private get modelName(): string {
+    return this._model.modelName;
+  }
 
+  private get viewModelName(): string {
+    return `${this._model.modelName}Vm`;
+  }
   async createDocument(payload: T): Promise<any> {
     //console.log({ payload }); // payload:{}
     return this._model.create(payload);
@@ -25,11 +28,19 @@ export abstract class BaseService<T> {
   }
 
   async findById(id: string): Promise<any> {
-    return this._model.findById(id).exec();
+    return this._model
+      .findOne({
+        _id: this.toObjectId(id),
+      })
+      .lean()
+      .exec();
   }
 
   async delete(id: string): Promise<any> {
-    //return this._model.findByIdAndRemove(Types.ObjectId(id)).exec();
+    return this._model.findByIdAndRemove(this.toObjectId(id)).exec();
+  }
+  private toObjectId(id: string): Types.ObjectId {
+    return new mongoose.Types.ObjectId(id);
   }
 
   async sortPaginate(query = {}, options: PaginateOptions): Promise<any> {
@@ -53,7 +64,7 @@ export abstract class BaseService<T> {
       .sort(`${options.price}`)
       .select(`${options.price}`);
 
-    return Promise.all([all, totalDocs, maxPrice, minPrice]).then((values) => {
+    return Promise.all([all, totalDocs, maxPrice, minPrice]).then(values => {
       return Promise.resolve({
         all: values[0],
         pagination: {

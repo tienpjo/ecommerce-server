@@ -7,6 +7,8 @@ import { UserModule } from './user/user.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { ProductsModule } from './products/products.module';
+import { CartModule } from './cart/cart.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +31,8 @@ import { ProductsModule } from './products/products.module';
     }),
     UserModule,
     ProductsModule,
+    CartModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Mongoose } from 'mongoose';
 import { User } from './models/user.model';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { AuthService } from 'src/auth/auth.service';
 import { AutomapperModule } from '@automapper/nestjs';
-import { AutomapProfile } from 'src/shared/mapper.service';
+import { AutomapProfile } from 'src/shared/mapper/mapper.service';
 
 @Module({
   imports: [

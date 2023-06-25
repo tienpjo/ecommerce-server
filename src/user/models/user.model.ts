@@ -20,13 +20,16 @@ export class User extends BaseModel<User> {
   })
   @AutoMap()
   password: string;
+
   @prop()
   @AutoMap()
   firstName?: string;
+
   @prop()
   @AutoMap()
   lastName?: string;
-  @prop()
+
+  @prop({ enum: UserRole, default: UserRole.User })
   @AutoMap()
   role?: UserRole;
 

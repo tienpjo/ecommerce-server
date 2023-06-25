@@ -13,11 +13,11 @@ export class Cart {
     console.log(itemExist);
     console.log(item);
     if (!itemExist) {
-      console.log('not exit');
+      // console.log('not exit');
       this.items.push({ ...item, qty: 1, id });
       console.log(this.items.length);
     } else {
-      console.log('exit');
+      //   console.log('exit');
       this.items.forEach(cartItem => {
         if (cartItem.id === id) {
           cartItem.qty++;
@@ -25,5 +25,22 @@ export class Cart {
         }
       });
     }
+  };
+
+  remove = (id: string): void => {
+    this.items = this.items
+      .map(item => {
+        if (item.id === id && item.qty > 1) {
+          item.qty--;
+        } else if (item.id === id && item.qty === 1) {
+          item = {} as Product;
+        }
+        return item;
+      })
+      .filter(cartItem => cartItem.id);
+  };
+
+  check = (id: string) => {
+    return this.items.find(item => item.id === id);
   };
 }

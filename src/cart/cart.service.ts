@@ -27,18 +27,41 @@ export class CartService extends BaseService<Product> {
   async addToCart(
     session,
     cartDto: CartChangeDto,
-  ): Promise<{ infoCartAdd; cart }> {
+  ): Promise<{ infoCart; cart }> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cart, config } = session;
     const { id } = cartDto;
-    console.log(id);
-    const infoCartAdd: Cart = new Cart(cart || {});
+    const infoCart: Cart = new Cart(cart || {});
     try {
       const product = await this.findById(id);
-      infoCartAdd.add(product, id);
-      return { infoCartAdd, cart: solveCart(infoCartAdd) };
+      infoCart.add(product, id);
+      return { infoCart, cart: solveCart(infoCart) };
     } catch {
-      return { infoCartAdd, cart: solveCart(infoCartAdd) };
+      return { infoCart, cart: solveCart(infoCart) };
+    }
+  }
+
+  async removeCart(
+    session,
+    cartDto: CartChangeDto,
+  ): Promise<{ infoCart; cart }> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { cart, config } = session;
+    const { id } = cartDto;
+    const infoCart: Cart = new Cart(cart || { items: [] });
+    try {
+      const product = await this.findById(id);
+      if (!product) {
+        const ExistCart = infoCart.check(id);
+        if (ExistCart) {
+          const emptyCart = new Cart({ items: [] });
+          return { infoCart: emptyCart, cart: emptyCart };
+        }
+      }
+      infoCart.remove(id);
+      return { infoCart, cart: solveCart(infoCart) };
+    } catch {
+      return { infoCart, cart: solveCart(infoCart) };
     }
   }
 }

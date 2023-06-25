@@ -9,7 +9,6 @@ export class CartController {
 
   @Get()
   getCart(@Session() session): Promise<CartModel> {
-    console.log(session);
     return this.cartService.getCart(session);
   }
 
@@ -18,13 +17,25 @@ export class CartController {
     @Session() session,
     @Query() getCartDto: CartChangeDto,
   ): Promise<CartModel> {
-    const { infoCartAdd, cart } = await this.cartService.addToCart(
+    const { infoCart, cart } = await this.cartService.addToCart(
       session,
       getCartDto,
     );
-    console.log(session);
-    session.cart = infoCartAdd;
+    session.cart = infoCart;
     // console.log(session);
+    return cart;
+  }
+
+  @Get('remove')
+  async removeCart(
+    @Session() session,
+    @Query() getCartDto: CartChangeDto,
+  ): Promise<CartModel> {
+    const { infoCart, cart } = await this.cartService.removeCart(
+      session,
+      getCartDto,
+    );
+    session.cart = infoCart;
     return cart;
   }
 }

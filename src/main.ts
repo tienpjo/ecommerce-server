@@ -2,13 +2,12 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import passport from 'passport';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import cookieParser from 'cookie-parser';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   const hostApp = `${AppModule.host}:${AppModule.port}`;
   const documentConfig = new DocumentBuilder()
@@ -23,9 +22,17 @@ async function bootstrap() {
     swaggerUrl: `${hostApp}/api/docs-json`,
     explorer: true,
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const clientP: any = mongoose
     .connect(process.env.MONGO_URI, {})
-    .then((m) => m.connection.getClient());
+    .then(m => m.connection.getClient());
+
+  app.use(
+    cors({
+      credentials: true,
+      origin: process.env.ORIGIN,
+    }),
+  );
 
   app.use(cookieParser());
   app.use(

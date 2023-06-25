@@ -31,8 +31,8 @@ export class CartService extends BaseService<Product> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cart, config } = session;
     const { id } = cartDto;
+    console.log(id);
     const infoCartAdd: Cart = new Cart(cart || {});
-
     try {
       const product = await this.findById(id);
       infoCartAdd.add(product, id);

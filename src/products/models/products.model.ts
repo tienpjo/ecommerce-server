@@ -1,9 +1,9 @@
 import { AutoMap } from '@automapper/classes';
 import { getModelForClass, prop } from '@typegoose/typegoose';
 import { ModelType } from '@typegoose/typegoose/lib/types';
-import { BaseModule, schemaOptions } from 'src/shared/base.model';
+import { BaseModel, schemaOptions } from 'src/shared/base.model';
 
-export class Product extends BaseModule<Product> {
+export class Product extends BaseModel<Product> {
   @prop()
   @AutoMap()
   title: string;
@@ -58,6 +58,10 @@ export class Product extends BaseModule<Product> {
   @prop()
   @AutoMap()
   id?: string;
+
+  @prop()
+  @AutoMap()
+  titleUrl: string;
 
   static get modelFromClass(): ModelType<Product> {
     return getModelForClass(Product, { schemaOptions });

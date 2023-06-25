@@ -8,11 +8,9 @@ import { Product } from './models/products.model';
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { GetProductsDto } from './models/dto/get-products.dto';
 import { ProductDto } from './models/dto/products.dto';
-import { IPaginateOptions } from 'typegoose-cursor-pagination';
 import { paginationLimit } from 'src/shared/constans';
 import { BaseService } from './../shared/base.service';
 import { SortOptions } from './models/sort.enum';
-import { User } from 'src/user/models/user.model';
 @Injectable()
 export class ProductsService extends BaseService<Product> {
   constructor(
@@ -50,9 +48,6 @@ export class ProductsService extends BaseService<Product> {
     };
 
     const productsSorted = await this.sortPaginate(query, options);
-
-    console.log(productsSorted);
-
     return {
       ...productsSorted,
     };

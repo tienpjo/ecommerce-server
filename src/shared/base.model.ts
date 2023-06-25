@@ -4,7 +4,7 @@ import { Expose } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import mongoose, { Schema, SchemaOptions } from 'mongoose';
 @Module({})
-export abstract class BaseModule<T> {
+export abstract class BaseModel<T> {
   @ApiPropertyOptional({ type: Date })
   @prop()
   @Expose()

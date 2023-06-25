@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseModule } from 'src/shared/base.model';
+import { BaseModel } from 'src/shared/base.model';
 import { User } from '../user.model';
 import { UserRole } from '../user-role.model';
 import { AutoMap } from '@automapper/classes';
 
-export class UserDto extends BaseModule<User> {
+export class UserDto extends BaseModel<User> {
   @ApiProperty()
   @AutoMap()
   username: string;

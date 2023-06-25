@@ -36,6 +36,10 @@ export abstract class BaseService<T> {
       .exec();
   }
 
+  async update(args = {}): Promise<any> {
+    this._model.findOneAndUpdate(args, { upsert: true });
+  }
+
   async delete(id: string): Promise<any> {
     return this._model.findByIdAndRemove(this.toObjectId(id)).exec();
   }

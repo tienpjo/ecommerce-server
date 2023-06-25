@@ -9,6 +9,7 @@ export class CartController {
 
   @Get()
   getCart(@Session() session): Promise<CartModel> {
+    console.log(session);
     return this.cartService.getCart(session);
   }
 
@@ -21,9 +22,9 @@ export class CartController {
       session,
       getCartDto,
     );
-    // console.log(newCart);
-    session.cart = infoCartAdd;
     console.log(session);
+    session.cart = infoCartAdd;
+    // console.log(session);
     return cart;
   }
 }

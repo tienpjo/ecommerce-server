@@ -1,10 +1,10 @@
 import { getModelForClass, prop } from '@typegoose/typegoose';
-import { BaseModule, schemaOptions } from 'src/shared/base.model';
+import { BaseModel, schemaOptions } from 'src/shared/base.model';
 import { UserRole } from './user-role.model';
-import { ModelType, ReturnModelType } from '@typegoose/typegoose/lib/types';
+import { ModelType } from '@typegoose/typegoose/lib/types';
 import { AutoMap } from '@automapper/classes';
 
-export class User extends BaseModule<User> {
+export class User extends BaseModel<User> {
   @prop({
     required: [true, 'Username is required'],
     unique: true,

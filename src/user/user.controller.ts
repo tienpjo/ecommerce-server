@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Session } from '@nestjs/common';
+import { Body, Controller, UseGuards, Get, Session } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiCreatedResponse } from '@nestjs/swagger';
 import { Post } from '@nestjs/common';
@@ -6,6 +6,9 @@ import { RegisterUserDto } from './models/standard-models/register-user.dto';
 import { UserDto } from './models/standard-models/user.dto';
 import { LoginUserDto } from './models/standard-models/login-user.dto';
 import { LoginResponseView } from './models/standard-models/login-response.model';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/shared/decorators/get-user.decorator';
+import { User } from './models/user.model';
 
 @Controller('user')
 export class UserController {
@@ -25,8 +28,12 @@ export class UserController {
     return this._userService.signIn(bodyUser);
   }
 
-  @Get('')
-  async getCookie(@Session() session: Record<string, any>) {
-    console.log(session.id);
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  getUser(@GetUser() user: User): {
+    username: string;
+    role: string;
+  } {
+    return { username: user.username, role: user.role };
   }
 }

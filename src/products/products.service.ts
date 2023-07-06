@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Product } from './models/products.model';
@@ -51,6 +52,22 @@ export class ProductsService extends BaseService<Product> {
     return {
       ...productsSorted,
     };
+  }
+
+  async getProductByName(name: string): Promise<Product> {
+    const exist = await this.findOne({ titleUrl: name });
+    if (!exist) {
+      throw new NotFoundException(`Product name ${name} not found`);
+    }
+    return exist;
+  }
+
+  async getProductSearch(pSearch: string): Promise<string[]> {
+    const productSearch = await this.findAll({
+      title: new RegExp(pSearch, 'i'),
+    });
+    console.log('logg');
+    return productSearch;
   }
 
   async addProduct(productReq: Product): Promise<void> {

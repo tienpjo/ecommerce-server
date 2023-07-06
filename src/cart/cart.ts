@@ -9,9 +9,7 @@ export class Cart {
   add = (item: Product, id: string): void => {
     const itemExist = !!this.items.filter(cartItem => cartItem.id === id)
       .length;
-    console.log(this.items);
-    console.log(itemExist);
-    console.log(item);
+
     if (!itemExist) {
       // console.log('not exit');
       this.items.push({ ...item, qty: 1, id });

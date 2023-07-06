@@ -30,6 +30,7 @@ export class CartService extends BaseService<Product> {
   ): Promise<{ infoCart; cart }> {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { cart, config } = session;
+
     const { id } = cartDto;
     const infoCart: Cart = new Cart(cart || {});
     try {

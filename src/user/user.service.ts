@@ -83,8 +83,8 @@ export class UserService extends BaseService<User> {
     const userView: UserDto = this._mapper.map(user, User, UserDto);
     console.log(userView);
     return {
-      token: accessToken,
-      user: userView,
+      accessToken: accessToken,
+      ...userView,
     };
   }
 }

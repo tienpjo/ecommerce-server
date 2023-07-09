@@ -16,7 +16,6 @@ export abstract class BaseModel<T> {
   updatedAt?: Date;
 
   @ApiPropertyOptional()
-  @prop()
   @Expose()
   _id?: mongoose.Types.ObjectId;
 

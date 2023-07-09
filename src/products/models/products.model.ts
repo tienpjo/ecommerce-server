@@ -47,9 +47,14 @@ export class Product extends BaseModel<Product> {
   @prop()
   @AutoMap()
   mainImage: { url: string; name: string };
+
   @prop()
   @AutoMap()
-  images: string[];
+  subImage?: string[];
+
+  @prop()
+  @AutoMap()
+  images?: string[];
 
   @prop()
   @AutoMap()
@@ -61,7 +66,7 @@ export class Product extends BaseModel<Product> {
 
   @prop()
   @AutoMap()
-  titleUrl: string;
+  titleUrl?: string;
 
   static get modelFromClass(): ModelType<Product> {
     return getModelForClass(Product, { schemaOptions });

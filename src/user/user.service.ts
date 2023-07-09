@@ -35,7 +35,6 @@ export class UserService extends BaseService<User> {
 
   async signUp(user: RegisterUserDto) {
     const { username, password, firstName, lastName } = user;
-    console.log(user);
     const saltRounds = 10;
     const userExist = await this.findOne({ username });
     if (userExist) {
@@ -79,9 +78,7 @@ export class UserService extends BaseService<User> {
     };
     //console.log(user);
     const accessToken = await this._authService.signPayload(payload);
-    console.log(user);
     const userView: UserDto = this._mapper.map(user, User, UserDto);
-    console.log(userView);
     return {
       accessToken: accessToken,
       ...userView,

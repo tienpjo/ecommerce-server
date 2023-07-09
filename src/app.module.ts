@@ -43,6 +43,6 @@ export class AppModule {
   constructor(private readonly configService: ConfigService) {
     AppModule.host = configService.get<string>('HOST');
     AppModule.port = configService.get<number>('PORT');
-    console.log(configService.get<string>('MONGO_URI'));
+    //  console.log(configService.get<string>('MONGO_URI'));
   }
 }

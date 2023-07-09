@@ -79,7 +79,7 @@ export class ProductsService extends BaseService<Product> {
       ...productReq,
       ...{ createdAt: new Date(Date.now()) },
     };
-    console.log(newProduct);
+    // console.log(newProduct);
 
     try {
       const product = await this.createDocument(newProduct);

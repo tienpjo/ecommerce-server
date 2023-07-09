@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 import session from 'express-session';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -30,7 +31,8 @@ async function bootstrap() {
   app.use(
     cors({
       credentials: true,
-      // origin: process.env.ORIGIN,
+      origin:
+        'http://client-app-angular.s3-website-ap-northeast-1.amazonaws.com',
     }),
   );
 
@@ -43,7 +45,8 @@ async function bootstrap() {
       },
       resave: false,
       saveUninitialized: true,
-      secret: process.env.COOKIE_KEY,
+      secret:
+        'FSFFLFSSGLGLGKSGSLJMSGLJSGLSGLJTJRTKHFSMNSNMFSNMFSNMFSFFSSFKLFSKSFKJFSKJ',
       // store: MongoStore.create({
       //   clientPromise: clientP,
       //   collectionName: 'sessionUser',

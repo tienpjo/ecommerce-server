@@ -41,7 +41,7 @@ export class AppModule {
   static host: string;
   static port: number;
   constructor(private readonly configService: ConfigService) {
-    AppModule.host = configService.get<string>('HOST');
+    // AppModule.host = configService.get<string>('HOST');
     AppModule.port = configService.get<number>('PORT');
     //  console.log(configService.get<string>('MONGO_URI'));
   }

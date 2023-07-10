@@ -7,6 +7,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import MongoStore from 'connect-mongo';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
@@ -31,8 +32,7 @@ async function bootstrap() {
   app.use(
     cors({
       credentials: true,
-      origin:
-        'http://client-app-angular.s3-website-ap-northeast-1.amazonaws.com',
+      origin: process.env.ORIGIN,
     }),
   );
 
@@ -43,14 +43,13 @@ async function bootstrap() {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         // secure: false,
       },
+      secret: process.env.COOKIE_KEY,
       resave: false,
       saveUninitialized: true,
-      secret:
-        'FSFFLFSSGLGLGKSGSLJMSGLJSGLSGLJTJRTKHFSMNSNMFSNMFSNMFSFFSSFKLFSKSFKJFSKJ',
-      // store: MongoStore.create({
-      //   clientPromise: clientP,
-      //   collectionName: 'sessionUser',
-      // }),
+      store: MongoStore.create({
+        clientPromise: clientP,
+        collectionName: 'sessionUser',
+      }),
     }),
   );
   app.use(passport.initialize());

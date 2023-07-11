@@ -1,7 +1,7 @@
 #build stage
 FROM node:18-alpine AS build
 
-WORKDIR /usr/src/app
+WORKDIR /tienpjo/server/src/app
 
 COPY package*.json ./
 
@@ -18,9 +18,9 @@ FROM node:18-alpine
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR /tienpjo/server/src/app
 
-COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /tienpjo/server/src/app/dist ./dist
 
 COPY package*.json ./
 

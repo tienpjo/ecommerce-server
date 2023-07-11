@@ -22,7 +22,6 @@ export class CartController {
       getCartDto,
     );
     session.cart = infoCart;
-    // console.log(session);
     return cart;
   }
 

@@ -33,6 +33,7 @@ async function bootstrap() {
     cors({
       credentials: true,
       origin: process.env.ORIGIN,
+      methods: ['GET', 'POST', 'GET', 'HEAD', 'PUT', 'PATCH'],
     }),
   );
 
@@ -41,7 +42,6 @@ async function bootstrap() {
     session({
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        // secure: false,
       },
       secret: process.env.COOKIE_KEY,
       resave: false,
